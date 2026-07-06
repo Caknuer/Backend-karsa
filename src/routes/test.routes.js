@@ -1,0 +1,19 @@
+const express = require("express");
+const router = express.Router();
+
+const supabase = require("../config/supabase");
+
+router.get("/supabase-test", async (req, res) => {
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .limit(5);
+
+  if (error) {
+    return res.status(500).json(error);
+  }
+
+  res.json(data);
+});
+
+module.exports = router;
